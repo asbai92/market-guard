@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-11-18T17:45:33+00:00",
+  "generated_at": "2026-11-18T17:51:27+00:00",
   "verdict": {
-    "status": "HOLD",
-    "score": 2,
+    "status": "UNKNOWN",
+    "score": 0,
     "max_score": 11,
-    "coverage": 8,
-    "explanation": "Les signaux disponibles ne réunissent pas les conditions de vigilance renforcée. Cela ne garantit pas l'absence de baisse."
+    "coverage": 6,
+    "explanation": "Collecte incomplète. Les données manquantes ne sont pas considérées comme rassurantes."
   },
   "indices": {
     "sp500": {
-      "close": 7333.5400390625,
+      "close": 7329.58984375,
       "date": "2026-11-18",
       "change_1w_pct": 2.5052673091114697
     },
     "dow": {
-      "close": 50332.55078125,
+      "close": 50313.51171875,
       "date": "2026-11-18",
       "change_1w_pct": 2.070401070229466
     },
     "nasdaq": {
-      "close": 27098.638671875,
+      "close": 27079.1328125,
       "date": "2026-11-18",
       "change_1w_pct": 3.5337174697650964
     }
@@ -63,8 +63,21 @@
     }
   },
   "macro": {
-    "yield_spread": 0.29000000000000004,
+    "yield_spread": 0.3,
+    "yield_spread_date": "2026-11-17",
     "yield_inverted": false,
+    "yield_curve": {
+      "available": true,
+      "confirmed_inversion": true,
+      "currently_inverted": false,
+      "start_month": "2024-06",
+      "months_since_start": 29,
+      "risk_window_12_18m": false,
+      "watch": false,
+      "latest_monthly_average": 0.30727272727272725,
+      "latest_month": "2026-11",
+      "detail": "Inversion mensuelle persistante depuis 2024-06; 29 mois écoulés. Fenêtre historique 12–18 mois: non."
+    },
     "claims_latest": 200000.0,
     "claims_4w_avg": 195250.0,
     "claims_13w_avg": 199923.07692307694,
@@ -78,6 +91,7 @@
     "fed_funds": 3.88,
     "inflation_restrictive": false,
     "dates": {
+      "T10Y2Y": "2026-11-17",
       "DGS10": "2026-11-16",
       "DGS2": "2026-11-16",
       "ICSA": "2026-11-07",
@@ -88,30 +102,23 @@
     }
   },
   "ad": {
-    "available": true,
-    "status": true,
-    "divergence": true,
-    "new_low": false,
-    "peak_date": "2026-08-14",
-    "last_date": "2026-11-18",
-    "sessions_since_peak": 67,
-    "price_new_high_after_peak": true,
-    "current": 11293.0,
-    "previous_60d_low": 10105.0,
-    "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
-    "generated_at": "2026-11-18T17:40:25.222479+00:00"
+    "available": false,
+    "status": null,
+    "divergence": null,
+    "new_low": null,
+    "detail": "NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise."
   },
   "criteria": [
     {
-      "name": "Divergence A/D supérieure à 3 mois",
-      "status": "yes",
-      "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
+      "name": "Divergence NYSE A/D / Dow Jones supérieure à 3 mois",
+      "status": "unknown",
+      "detail": "NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise.",
       "weight": 2
     },
     {
-      "name": "A/D inscrit un nouveau plus bas après le rebond",
-      "status": "no",
-      "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
+      "name": "NYSE A/D inscrit un nouveau plus bas après le rebond",
+      "status": "unknown",
+      "detail": "NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise.",
       "weight": 1
     },
     {
@@ -127,9 +134,9 @@
       "weight": 2
     },
     {
-      "name": "Courbe des taux 10 ans – 2 ans inversée",
+      "name": "Inversion persistante 10 ans–2 ans / risque 12–18 mois",
       "status": "no",
-      "detail": "Écart 10 ans – 2 ans : 0.29 point.",
+      "detail": "Inversion mensuelle persistante depuis 2024-06; 29 mois écoulés. Fenêtre historique 12–18 mois: non. Écart quotidien : 0.30 point.",
       "weight": 1
     },
     {
@@ -169,23 +176,19 @@
     },
     {
       "name": "FRED / Federal Reserve",
-      "date": "2026-11-16",
+      "date": "2026-11-17",
       "status": "séries publiques récupérées"
-    },
-    {
-      "name": "DeanFinancials — A/D S&P 500 (proxy)",
-      "date": "2026-11-18",
-      "status": "source communautaire; fraîcheur contrôlée"
     }
   ],
   "health": {
-    "stale": false,
+    "stale": true,
     "errors": [],
     "notes": [
-      "La ligne A/D utilisée est un proxy S&P 500, pas la ligne NYSE exacte citée dans l'article 2019.",
+      "La ligne NYSE A/D exacte ($ADLINENYA) n'est pas connectée; aucun proxy S&P 500 n'est utilisé dans le verdict.",
       "La cassure est testée sur deux clôtures hebdomadaires sous le plus bas des 26 semaines précédentes.",
       "La phase 4 correspond à une clôture sous MM30 semaines avec MM30 descendante sur 4 semaines.",
       "Les seuils de chômage, charge-offs et inflation sont des règles indicatives ajoutées au modèle, pas des seuils officiels BlogBourse.",
+      "La courbe des taux est suivie par T10Y2Y; inversion confirmée après 3 moyennes mensuelles négatives. La fenêtre 12–18 mois est un repère historique, pas une prévision certaine.",
       "Le score et les seuils doivent être backtestés; ce verdict n'est pas un ordre de vente."
     ]
   }
