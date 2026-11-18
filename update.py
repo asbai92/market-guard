@@ -28,7 +28,7 @@ def yahoo(symbol):
 
 def fred():
     ids=["DGS10","DGS2","ICSA","UNRATE","CORALACBS","CPIAUCSL","FEDFUNDS"]
-    raw=get("https://fred.stlouisfed.org/graph/fredgraph.csv?id="+",".join(ids)).decode("utf-8-sig")
+    raw=get("https://fred.stlouisfed.org/graph/fredgraph.csv?id="+",".join(ids)).decode("cp1252")
     out={k:[] for k in ids}
     for row in csv.DictReader(io.StringIO(raw)):
         dt=row.get("observation_date") or row.get("DATE")
