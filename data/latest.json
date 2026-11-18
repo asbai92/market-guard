@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T17:34:26+00:00",
+  "generated_at": "2026-11-18T17:34:55+00:00",
   "verdict": {
     "status": "UNKNOWN",
     "score": 2,
@@ -9,17 +9,17 @@
   },
   "indices": {
     "sp500": {
-      "close": 7353.009765625,
+      "close": 7352.93994140625,
       "date": "2026-11-18",
       "change_1w_pct": 2.5052673091114697
     },
     "dow": {
-      "close": 50435.87890625,
+      "close": 50421.30078125,
       "date": "2026-11-18",
       "change_1w_pct": 2.070401070229466
     },
     "nasdaq": {
-      "close": 27204.814453125,
+      "close": 27203.33203125,
       "date": "2026-11-18",
       "change_1w_pct": 3.5337174697650964
     }
@@ -152,7 +152,7 @@
   "health": {
     "stale": true,
     "errors": [
-      "FRED: 'utf-8' codec can't decode byte 0x8c in position 11: invalid start byte"
+      "FRED: 'charmap' codec can't decode byte 0x8f in position 69: character maps to <undefined>"
     ],
     "notes": [
       "La ligne A/D utilisée est un proxy S&P 500, pas la ligne NYSE exacte citée dans l'article 2019.",
