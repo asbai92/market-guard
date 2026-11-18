@@ -1,0 +1,26 @@
+{
+  "generated_at": null,
+  "verdict": {
+    "status": "UNKNOWN",
+    "score": 0,
+    "max_score": 11,
+    "coverage": 0,
+    "explanation": "Première collecte en attente. Aucune donnée manquante n'est considérée comme rassurante."
+  },
+  "indices": {},
+  "trends": {},
+  "macro": {},
+  "ad": {
+    "status": null,
+    "detail": "Première collecte en attente."
+  },
+  "criteria": [],
+  "sources": [],
+  "health": {
+    "stale": true,
+    "errors": [
+      "Première collecte non exécutée."
+    ],
+    "notes": []
+  }
+}
