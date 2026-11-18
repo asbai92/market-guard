@@ -62,18 +62,30 @@ def yield_curve_history(series):
     values=[{'month':m,'avg':statistics.mean(v)} for m,v in sorted(monthly.items())]
     if len(values)<3:
         return {'available':False,'confirmed_inversion':None,'detail':'Historique mensuel insuffisant.'}
-    runs=[i for i in range(len(values)-2) if all(values[j]['avg']<0 for j in (i,i+1,i+2))]
     latest=values[-1]
+    # Identifier le premier mois de la dernière séquence continue d'inversion,
+    # pas le début de la dernière fenêtre glissante de trois mois.
+    negative=[i for i,x in enumerate(values) if x['avg']<0]
+    runs=[]
+    if negative:
+        run=[negative[0]]
+        for idx in negative[1:]:
+            if idx==run[-1]+1: run.append(idx)
+            else:
+                if len(run)>=3: runs.append(run)
+                run=[idx]
+        if len(run)>=3: runs.append(run)
     if not runs:
         current=latest['avg']<0
         return {'available':True,'confirmed_inversion':False,'currently_inverted':current,'start_month':None,'months_since_start':None,'risk_window_12_18m':False,'watch':current,'latest_monthly_average':latest['avg'],'latest_month':latest['month'],'detail':'Aucune séquence de 3 moyennes mensuelles négatives détectée.'}
-    start=values[runs[-1]]['month']
+    start=values[runs[-1][0]]['month']
+    end=values[runs[-1][-1]]['month']
     sy,sm=map(int,start.split('-')); ly,lm=map(int,latest['month'].split('-'))
     elapsed=(ly-sy)*12+(lm-sm)
     current=latest['avg']<0
     window=12<=elapsed<=18
     watch=current or (0<=elapsed<=18)
-    return {'available':True,'confirmed_inversion':True,'currently_inverted':current,'start_month':start,'months_since_start':elapsed,'risk_window_12_18m':window,'watch':watch,'latest_monthly_average':latest['avg'],'latest_month':latest['month'],'detail':'Inversion mensuelle persistante depuis '+start+'; '+str(elapsed)+' mois écoulés. Fenêtre historique 12–18 mois: '+('oui' if window else 'non')+'.'}
+    return {'available':True,'confirmed_inversion':True,'currently_inverted':current,'start_month':start,'end_month':end,'months_since_start':elapsed,'risk_window_12_18m':window,'watch':watch,'latest_monthly_average':latest['avg'],'latest_month':latest['month'],'detail':'Inversion mensuelle persistante de '+start+' à '+end+'; '+str(elapsed)+' mois depuis le début. Fenêtre historique 12–18 mois: '+('oui' if window else 'non')+'.'}
 
 def weekly(rows):
     groups={}
