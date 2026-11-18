@@ -59,7 +59,8 @@ def yield_curve_history(series):
     monthly={}
     for row in series:
         monthly.setdefault(row['date'][:7], []).append(row['value'])
-    values=[{'month':m,'avg':statistics.mean(v)} for m,v in sorted(monthly.items())]
+    current_month=datetime.now(timezone.utc).strftime('%Y-%m')
+    values=[{'month':m,'avg':statistics.mean(v)} for m,v in sorted(monthly.items()) if m<current_month]
     if len(values)<3:
         return {'available':False,'confirmed_inversion':None,'detail':'Historique mensuel insuffisant.'}
     latest=values[-1]
@@ -170,7 +171,14 @@ def main():
     # L'article demande la NYSE A/D Line ($ADLINENYA) comparee au Dow.
     # Le proxy DeanFinancials S&P 500 est volontairement exclu du verdict.
     ad={"available":False,"status":None,"divergence":None,"new_low":None,
-        "detail":"NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise."}
+        "detail":"NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise dans les criteres NYSE."}
+    ad_sp500={"available":False,"detail":"Proxy S&P 500 non disponible."}
+    try:
+        ad_sp500=ad_metrics(raw["sp500"])
+        ad_sp500["warning"]="Univers S&P 500 uniquement : indicateur secondaire, non substituable à la NYSE A/D Line."
+        sources.append({"name":"DeanFi — A/D S&P 500 (proxy secondaire)","date":ad_sp500.get("last_date"),"status":"disponible" if ad_sp500.get("available") else "indisponible"})
+    except Exception as e:
+        ad_sp500={"available":False,"detail":"Collecte A/D S&P 500 impossible : "+str(e)}
     stages=[trends.get(k,{}).get("stage4") for k in ("sp500","dow","nasdaq")]
     breaks=[trends.get(k,{}).get("support_break") for k in ("sp500","dow","nasdaq")]
     all_stages=all(x is True for x in stages) if all(trends.get(k,{}).get("available") for k in ("sp500","dow","nasdaq")) else None
@@ -200,9 +208,9 @@ def main():
     else:
       status="HOLD"; explanation="Les signaux disponibles ne réunissent pas les conditions de vigilance renforcée. Cela ne garantit pas l'absence de baisse."
     data={"generated_at":now,"verdict":{"status":status,"score":score,"max_score":sum(x["weight"] for x in criteria),"coverage":coverage,"explanation":explanation},
-      "indices":indices,"trends":trends,"macro":macro,"ad":ad,"criteria":criteria,"sources":sources,
+      "indices":indices,"trends":trends,"macro":macro,"ad":ad,"ad_sp500":ad_sp500,"criteria":criteria,"sources":sources,
       "health":{"stale":bool(errors or not ad.get("available")),"errors":errors,"notes":[
-       "La ligne NYSE A/D exacte ($ADLINENYA) n'est pas connectée; aucun proxy S&P 500 n'est utilisé dans le verdict.",
+       "La ligne NYSE A/D exacte ($ADLINENYA) n'est pas connectée. Le proxy S&P 500 DeanFi est affiché séparément et ne remplace pas la série NYSE.",
        "La cassure est testée sur deux clôtures hebdomadaires sous le plus bas des 26 semaines précédentes.",
        "La phase 4 correspond à une clôture sous MM30 semaines avec MM30 descendante sur 4 semaines.",
        "Les seuils de chômage, charge-offs et inflation sont des règles indicatives ajoutées au modèle, pas des seuils officiels BlogBourse.",
