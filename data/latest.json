@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-11-18T17:34:55+00:00",
+  "generated_at": "2026-11-18T17:35:40+00:00",
   "verdict": {
-    "status": "UNKNOWN",
+    "status": "HOLD",
     "score": 2,
     "max_score": 11,
-    "coverage": 4,
-    "explanation": "Collecte incomplète. Les données manquantes ne sont pas considérées comme rassurantes."
+    "coverage": 8,
+    "explanation": "Les signaux disponibles ne réunissent pas les conditions de vigilance renforcée. Cela ne garantit pas l'absence de baisse."
   },
   "indices": {
     "sp500": {
-      "close": 7352.93994140625,
+      "close": 7349.68994140625,
       "date": "2026-11-18",
       "change_1w_pct": 2.5052673091114697
     },
     "dow": {
-      "close": 50421.30078125,
+      "close": 50413.80078125,
       "date": "2026-11-18",
       "change_1w_pct": 2.070401070229466
     },
     "nasdaq": {
-      "close": 27203.33203125,
+      "close": 27191.140625,
       "date": "2026-11-18",
       "change_1w_pct": 3.5337174697650964
     }
@@ -62,7 +62,31 @@
       "weeks": 261
     }
   },
-  "macro": {},
+  "macro": {
+    "yield_spread": 0.29000000000000004,
+    "yield_inverted": false,
+    "claims_latest": 200000.0,
+    "claims_4w_avg": 195250.0,
+    "claims_13w_avg": 199923.07692307694,
+    "claims_rising": false,
+    "unemployment_latest": 4.1,
+    "unemployment_rising": false,
+    "chargeoff_latest": 0.55,
+    "chargeoff_date": "2026-04-01",
+    "chargeoffs_rising": false,
+    "cpi_yoy": 4.080556369412025,
+    "fed_funds": 3.88,
+    "inflation_restrictive": false,
+    "dates": {
+      "DGS10": "2026-11-16",
+      "DGS2": "2026-11-16",
+      "ICSA": "2026-11-07",
+      "UNRATE": "2026-10-01",
+      "CORALACBS": "2026-04-01",
+      "CPIAUCSL": "2026-10-01",
+      "FEDFUNDS": "2026-10-01"
+    }
+  },
   "ad": {
     "available": true,
     "status": true,
@@ -104,26 +128,26 @@
     },
     {
       "name": "Courbe des taux 10 ans – 2 ans inversée",
-      "status": "unknown",
-      "detail": "Séries FRED indisponibles.",
+      "status": "no",
+      "detail": "Écart 10 ans – 2 ans : 0.29 point.",
       "weight": 1
     },
     {
       "name": "Inscriptions au chômage en hausse",
-      "status": "unknown",
-      "detail": "Séries FRED indisponibles.",
+      "status": "no",
+      "detail": "Moyenne 4 semaines 195,250 vs 13 semaines 199,923.",
       "weight": 1
     },
     {
       "name": "Taux de charge-offs bancaires en hausse",
-      "status": "unknown",
-      "detail": "Séries FRED indisponibles.",
+      "status": "no",
+      "detail": "Dernier taux : 0.55 % (2026-04-01).",
       "weight": 1
     },
     {
       "name": "Inflation élevée et taux directeurs restrictifs",
-      "status": "unknown",
-      "detail": "Séries FRED indisponibles.",
+      "status": "no",
+      "detail": "CPI 12 mois : 4.08 % ; Fed Funds : 3.88 %.",
       "weight": 1
     }
   ],
@@ -144,16 +168,19 @@
       "status": "cours récupérés"
     },
     {
+      "name": "FRED / Federal Reserve",
+      "date": "2026-11-16",
+      "status": "séries publiques récupérées"
+    },
+    {
       "name": "DeanFinancials — A/D S&P 500 (proxy)",
       "date": "2026-11-18",
       "status": "source communautaire; fraîcheur contrôlée"
     }
   ],
   "health": {
-    "stale": true,
-    "errors": [
-      "FRED: 'charmap' codec can't decode byte 0x8f in position 69: character maps to <undefined>"
-    ],
+    "stale": false,
+    "errors": [],
     "notes": [
       "La ligne A/D utilisée est un proxy S&P 500, pas la ligne NYSE exacte citée dans l'article 2019.",
       "La cassure est testée sur deux clôtures hebdomadaires sous le plus bas des 26 semaines précédentes.",
