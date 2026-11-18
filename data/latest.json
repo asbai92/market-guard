@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T17:39:32+00:00",
+  "generated_at": "2026-11-18T17:45:33+00:00",
   "verdict": {
     "status": "HOLD",
     "score": 2,
@@ -9,17 +9,17 @@
   },
   "indices": {
     "sp500": {
-      "close": 7338.169921875,
+      "close": 7333.5400390625,
       "date": "2026-11-18",
       "change_1w_pct": 2.5052673091114697
     },
     "dow": {
-      "close": 50363.19921875,
+      "close": 50332.55078125,
       "date": "2026-11-18",
       "change_1w_pct": 2.070401070229466
     },
     "nasdaq": {
-      "close": 27119.611328125,
+      "close": 27098.638671875,
       "date": "2026-11-18",
       "change_1w_pct": 3.5337174697650964
     }
@@ -96,10 +96,10 @@
     "last_date": "2026-11-18",
     "sessions_since_peak": 67,
     "price_new_high_after_peak": true,
-    "current": 11331.0,
+    "current": 11293.0,
     "previous_60d_low": 10105.0,
     "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
-    "generated_at": "2026-11-18T17:25:23.665577+00:00"
+    "generated_at": "2026-11-18T17:40:25.222479+00:00"
   },
   "criteria": [
     {
