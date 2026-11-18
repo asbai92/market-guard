@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T17:51:27+00:00",
+  "generated_at": "2026-11-18T17:52:03+00:00",
   "verdict": {
     "status": "UNKNOWN",
     "score": 0,
@@ -9,17 +9,17 @@
   },
   "indices": {
     "sp500": {
-      "close": 7329.58984375,
+      "close": 7333.68994140625,
       "date": "2026-11-18",
       "change_1w_pct": 2.5052673091114697
     },
     "dow": {
-      "close": 50313.51171875,
+      "close": 50334.71875,
       "date": "2026-11-18",
       "change_1w_pct": 2.070401070229466
     },
     "nasdaq": {
-      "close": 27079.1328125,
+      "close": 27099.748046875,
       "date": "2026-11-18",
       "change_1w_pct": 3.5337174697650964
     }
@@ -70,13 +70,14 @@
       "available": true,
       "confirmed_inversion": true,
       "currently_inverted": false,
-      "start_month": "2024-06",
-      "months_since_start": 29,
+      "start_month": "2022-07",
+      "end_month": "2024-08",
+      "months_since_start": 52,
       "risk_window_12_18m": false,
       "watch": false,
       "latest_monthly_average": 0.30727272727272725,
       "latest_month": "2026-11",
-      "detail": "Inversion mensuelle persistante depuis 2024-06; 29 mois écoulés. Fenêtre historique 12–18 mois: non."
+      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 52 mois depuis le début. Fenêtre historique 12–18 mois: non."
     },
     "claims_latest": 200000.0,
     "claims_4w_avg": 195250.0,
@@ -136,7 +137,7 @@
     {
       "name": "Inversion persistante 10 ans–2 ans / risque 12–18 mois",
       "status": "no",
-      "detail": "Inversion mensuelle persistante depuis 2024-06; 29 mois écoulés. Fenêtre historique 12–18 mois: non. Écart quotidien : 0.30 point.",
+      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 52 mois depuis le début. Fenêtre historique 12–18 mois: non. Écart quotidien : 0.30 point.",
       "weight": 1
     },
     {
