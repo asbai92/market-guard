@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T17:53:47+00:00",
+  "generated_at": "2026-11-18T17:56:48+00:00",
   "verdict": {
     "status": "UNKNOWN",
     "score": 0,
@@ -9,17 +9,17 @@
   },
   "indices": {
     "sp500": {
-      "close": 7332.97021484375,
+      "close": 7333.740234375,
       "date": "2026-11-18",
       "change_1w_pct": 2.5052673091114697
     },
     "dow": {
-      "close": 50332.921875,
+      "close": 50328.19140625,
       "date": "2026-11-18",
       "change_1w_pct": 2.070401070229466
     },
     "nasdaq": {
-      "close": 27088.548828125,
+      "close": 27096.48046875,
       "date": "2026-11-18",
       "change_1w_pct": 3.5337174697650964
     }
@@ -72,12 +72,12 @@
       "currently_inverted": false,
       "start_month": "2022-07",
       "end_month": "2024-08",
-      "months_since_start": 52,
+      "months_since_start": 51,
       "risk_window_12_18m": false,
       "watch": false,
-      "latest_monthly_average": 0.30727272727272725,
-      "latest_month": "2026-11",
-      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 52 mois depuis le début. Fenêtre historique 12–18 mois: non."
+      "latest_monthly_average": 0.38761904761904764,
+      "latest_month": "2026-10",
+      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 51 mois depuis le début. Fenêtre historique 12–18 mois: non."
     },
     "claims_latest": 200000.0,
     "claims_4w_avg": 195250.0,
@@ -107,19 +107,34 @@
     "status": null,
     "divergence": null,
     "new_low": null,
-    "detail": "NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise."
+    "detail": "NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise dans les criteres NYSE."
+  },
+  "ad_sp500": {
+    "available": true,
+    "status": true,
+    "divergence": true,
+    "new_low": false,
+    "peak_date": "2026-08-14",
+    "last_date": "2026-11-18",
+    "sessions_since_peak": 67,
+    "price_new_high_after_peak": true,
+    "current": 11316.0,
+    "previous_60d_low": 10105.0,
+    "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
+    "generated_at": "2026-11-18T17:55:24.843065+00:00",
+    "warning": "Univers S&P 500 uniquement : indicateur secondaire, non substituable à la NYSE A/D Line."
   },
   "criteria": [
     {
       "name": "Divergence NYSE A/D / Dow Jones supérieure à 3 mois",
       "status": "unknown",
-      "detail": "NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise.",
+      "detail": "NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise dans les criteres NYSE.",
       "weight": 2
     },
     {
       "name": "NYSE A/D inscrit un nouveau plus bas après le rebond",
       "status": "unknown",
-      "detail": "NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise.",
+      "detail": "NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise dans les criteres NYSE.",
       "weight": 1
     },
     {
@@ -137,7 +152,7 @@
     {
       "name": "Inversion persistante 10 ans–2 ans / risque 12–18 mois",
       "status": "no",
-      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 52 mois depuis le début. Fenêtre historique 12–18 mois: non. Écart quotidien : 0.30 point.",
+      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 51 mois depuis le début. Fenêtre historique 12–18 mois: non. Écart quotidien : 0.30 point.",
       "weight": 1
     },
     {
@@ -179,13 +194,18 @@
       "name": "FRED / Federal Reserve",
       "date": "2026-11-17",
       "status": "séries publiques récupérées"
+    },
+    {
+      "name": "DeanFi — A/D S&P 500 (proxy secondaire)",
+      "date": "2026-11-18",
+      "status": "disponible"
     }
   ],
   "health": {
     "stale": true,
     "errors": [],
     "notes": [
-      "La ligne NYSE A/D exacte ($ADLINENYA) n'est pas connectée; aucun proxy S&P 500 n'est utilisé dans le verdict.",
+      "La ligne NYSE A/D exacte ($ADLINENYA) n'est pas connectée. Le proxy S&P 500 DeanFi est affiché séparément et ne remplace pas la série NYSE.",
       "La cassure est testée sur deux clôtures hebdomadaires sous le plus bas des 26 semaines précédentes.",
       "La phase 4 correspond à une clôture sous MM30 semaines avec MM30 descendante sur 4 semaines.",
       "Les seuils de chômage, charge-offs et inflation sont des règles indicatives ajoutées au modèle, pas des seuils officiels BlogBourse.",
