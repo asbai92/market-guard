@@ -28,7 +28,7 @@ def yahoo(symbol):
 
 def fred():
     # Télécharger les séries séparément : l'export multi-séries FRED renvoie parfois un CSV mal formé.
-    ids=["DGS10","DGS2","ICSA","UNRATE","CORALACBS","CPIAUCSL","FEDFUNDS"]
+    ids=["T10Y2Y","DGS10","DGS2","ICSA","UNRATE","CORALACBS","CPIAUCSL","FEDFUNDS"]
     out={}
     for k in ids:
         payload=get("https://fred.stlouisfed.org/graph/fredgraph.csv?id="+k).decode("utf-8-sig",errors="replace")
@@ -55,6 +55,26 @@ def fred():
         if not vals: raise RuntimeError("Série FRED vide ou illisible: "+k)
         out[k]=vals
     return out
+def yield_curve_history(series):
+    monthly={}
+    for row in series:
+        monthly.setdefault(row['date'][:7], []).append(row['value'])
+    values=[{'month':m,'avg':statistics.mean(v)} for m,v in sorted(monthly.items())]
+    if len(values)<3:
+        return {'available':False,'confirmed_inversion':None,'detail':'Historique mensuel insuffisant.'}
+    runs=[i for i in range(len(values)-2) if all(values[j]['avg']<0 for j in (i,i+1,i+2))]
+    latest=values[-1]
+    if not runs:
+        current=latest['avg']<0
+        return {'available':True,'confirmed_inversion':False,'currently_inverted':current,'start_month':None,'months_since_start':None,'risk_window_12_18m':False,'watch':current,'latest_monthly_average':latest['avg'],'latest_month':latest['month'],'detail':'Aucune séquence de 3 moyennes mensuelles négatives détectée.'}
+    start=values[runs[-1]]['month']
+    sy,sm=map(int,start.split('-')); ly,lm=map(int,latest['month'].split('-'))
+    elapsed=(ly-sy)*12+(lm-sm)
+    current=latest['avg']<0
+    window=12<=elapsed<=18
+    watch=current or (0<=elapsed<=18)
+    return {'available':True,'confirmed_inversion':True,'currently_inverted':current,'start_month':start,'months_since_start':elapsed,'risk_window_12_18m':window,'watch':watch,'latest_monthly_average':latest['avg'],'latest_month':latest['month'],'detail':'Inversion mensuelle persistante depuis '+start+'; '+str(elapsed)+' mois écoulés. Fenêtre historique 12–18 mois: '+('oui' if window else 'non')+'.'}
+
 def weekly(rows):
     groups={}
     for r in rows:
@@ -120,13 +140,14 @@ def main():
     macro={}
     try:
         f=fred()
+        yc=yield_curve_history(f["T10Y2Y"])
         d10=f["DGS10"][-1]["value"]; d2=f["DGS2"][-1]["value"]
         claims=f["ICSA"]; avg4=statistics.mean(x["value"] for x in claims[-4:]); avg13=statistics.mean(x["value"] for x in claims[-13:])
         un=f["UNRATE"]; un_rise=statistics.mean(x["value"] for x in un[-3:])>=min(x["value"] for x in un[-12:])+0.3 if len(un)>=12 else None
         co=f["CORALACBS"]; co_rise=(co[-1]["value"]>co[-2]["value"]>co[-3]["value"] and co[-1]["value"]-co[-5]["value"]>=0.15) if len(co)>=5 else None
         cpi=f["CPIAUCSL"]; cpi_yoy=(cpi[-1]["value"]/cpi[-13]["value"]-1)*100 if len(cpi)>=13 else None
         fed=f["FEDFUNDS"][-1]["value"]
-        macro={"yield_spread":d10-d2,"yield_inverted":d10<d2,"claims_latest":claims[-1]["value"],
+        macro={"yield_spread":f["T10Y2Y"][-1]["value"],"yield_spread_date":f["T10Y2Y"][-1]["date"],"yield_inverted":f["T10Y2Y"][-1]["value"]<0,"yield_curve":yc,"claims_latest":claims[-1]["value"],
           "claims_4w_avg":avg4,"claims_13w_avg":avg13,"claims_rising":avg4>avg13*1.08,
           "unemployment_latest":un[-1]["value"],"unemployment_rising":un_rise,
           "chargeoff_latest":co[-1]["value"],"chargeoff_date":co[-1]["date"],"chargeoffs_rising":co_rise,
@@ -134,24 +155,23 @@ def main():
           "dates":{k:v[-1]["date"] for k,v in f.items()}}
         sources.append({"name":"FRED / Federal Reserve","date":max(macro["dates"].values()),"status":"séries publiques récupérées"})
     except Exception as e: errors.append("FRED: "+str(e))
-    ad={"available":False,"status":None,"detail":"Source A/D indisponible."}
-    try:
-        ad=ad_metrics(raw.get("sp500",[]))
-        if ad.get("available"): sources.append({"name":"DeanFinancials — A/D S&P 500 (proxy)","date":ad.get("last_date"),"status":"source communautaire; fraîcheur contrôlée"})
-    except Exception as e: errors.append("A/D: "+str(e))
+    # L'article demande la NYSE A/D Line ($ADLINENYA) comparee au Dow.
+    # Le proxy DeanFinancials S&P 500 est volontairement exclu du verdict.
+    ad={"available":False,"status":None,"divergence":None,"new_low":None,
+        "detail":"NYSE A/D Line ($ADLINENYA) non connectee. Aucun proxy S&P 500 n'est utilise."}
     stages=[trends.get(k,{}).get("stage4") for k in ("sp500","dow","nasdaq")]
     breaks=[trends.get(k,{}).get("support_break") for k in ("sp500","dow","nasdaq")]
     all_stages=all(x is True for x in stages) if all(trends.get(k,{}).get("available") for k in ("sp500","dow","nasdaq")) else None
     all_breaks=all(x is True for x in breaks) if all(trends.get(k,{}).get("available") for k in ("sp500","dow","nasdaq")) else None
     criteria=[
-      criterion("Divergence A/D supérieure à 3 mois",ad.get("divergence"),ad.get("detail"),2),
-      criterion("A/D inscrit un nouveau plus bas après le rebond",ad.get("new_low"),ad.get("detail"),1),
+      criterion("Divergence NYSE A/D / Dow Jones supérieure à 3 mois",None,ad.get("detail"),2),
+      criterion("NYSE A/D inscrit un nouveau plus bas après le rebond",None,ad.get("detail"),1),
       criterion("MM30 semaines descendante et cours sous MM30 sur les 3 indices",all_stages,f"{sum(x is True for x in stages)}/3 indices en phase 4.",2),
       criterion("Les 3 indices cassent leur support hebdomadaire",all_breaks,"Cassure confirmée sur deux clôtures hebdomadaires sous les supports calculés sur les 26 semaines antérieures.",2)
     ]
     if macro:
       criteria += [
-        criterion("Courbe des taux 10 ans – 2 ans inversée",macro["yield_inverted"],f"Écart 10 ans – 2 ans : {macro['yield_spread']:.2f} point.",1),
+        criterion("Inversion persistante 10 ans–2 ans / risque 12–18 mois",macro["yield_curve"].get("watch"),macro["yield_curve"].get("detail","Historique indisponible.")+" Écart quotidien : "+f"{macro['yield_spread']:.2f} point.",1),
         criterion("Inscriptions au chômage en hausse",macro["claims_rising"],f"Moyenne 4 semaines {macro['claims_4w_avg']:,.0f} vs 13 semaines {macro['claims_13w_avg']:,.0f}.",1),
         criterion("Taux de charge-offs bancaires en hausse",macro["chargeoffs_rising"],f"Dernier taux : {macro['chargeoff_latest']:.2f} % ({macro['chargeoff_date']}).",1),
         criterion("Inflation élevée et taux directeurs restrictifs",macro["inflation_restrictive"],f"CPI 12 mois : {macro['cpi_yoy']:.2f} % ; Fed Funds : {macro['fed_funds']:.2f} %." if macro.get("cpi_yoy") is not None else "Données CPI insuffisantes.",1)]
@@ -159,7 +179,7 @@ def main():
       criteria += [criterion(n,None,"Séries FRED indisponibles.",1) for n in ["Courbe des taux 10 ans – 2 ans inversée","Inscriptions au chômage en hausse","Taux de charge-offs bancaires en hausse","Inflation élevée et taux directeurs restrictifs"]]
     score=sum(x["weight"] for x in criteria if x["status"]=="yes"); coverage=sum(x["status"]!="unknown" for x in criteria)
     all_market=all(trends.get(k,{}).get("available") for k in ("sp500","dow","nasdaq"))
-    if coverage<5 or not all_market:
+    if coverage<5 or not all_market or ad.get("available") is not True:
       status="UNKNOWN"; explanation="Collecte incomplète. Les données manquantes ne sont pas considérées comme rassurantes."
     elif all_stages is True and all_breaks is True and score>=6:
       status="EXIT"; explanation="Les 3 indices sont en phase 4 et ont confirmé la cassure de leurs supports hebdomadaires, avec un score de risque élevé. C'est le signal technique fort décrit dans l'approche 2022; vérifier les données et le portefeuille avant toute décision."
@@ -170,10 +190,11 @@ def main():
     data={"generated_at":now,"verdict":{"status":status,"score":score,"max_score":sum(x["weight"] for x in criteria),"coverage":coverage,"explanation":explanation},
       "indices":indices,"trends":trends,"macro":macro,"ad":ad,"criteria":criteria,"sources":sources,
       "health":{"stale":bool(errors or not ad.get("available")),"errors":errors,"notes":[
-       "La ligne A/D utilisée est un proxy S&P 500, pas la ligne NYSE exacte citée dans l'article 2019.",
+       "La ligne NYSE A/D exacte ($ADLINENYA) n'est pas connectée; aucun proxy S&P 500 n'est utilisé dans le verdict.",
        "La cassure est testée sur deux clôtures hebdomadaires sous le plus bas des 26 semaines précédentes.",
        "La phase 4 correspond à une clôture sous MM30 semaines avec MM30 descendante sur 4 semaines.",
        "Les seuils de chômage, charge-offs et inflation sont des règles indicatives ajoutées au modèle, pas des seuils officiels BlogBourse.",
+       "La courbe des taux est suivie par T10Y2Y; inversion confirmée après 3 moyennes mensuelles négatives. La fenêtre 12–18 mois est un repère historique, pas une prévision certaine.",
        "Le score et les seuils doivent être backtestés; ce verdict n'est pas un ordre de vente."
       ]}}
     (DATA/"latest.json").write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding="utf-8")
