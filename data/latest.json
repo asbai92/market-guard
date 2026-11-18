@@ -1,26 +1,165 @@
 {
-  "generated_at": null,
+  "generated_at": "2026-11-18T17:34:26+00:00",
   "verdict": {
     "status": "UNKNOWN",
-    "score": 0,
+    "score": 2,
     "max_score": 11,
-    "coverage": 0,
-    "explanation": "Première collecte en attente. Aucune donnée manquante n'est considérée comme rassurante."
+    "coverage": 4,
+    "explanation": "Collecte incomplète. Les données manquantes ne sont pas considérées comme rassurantes."
   },
-  "indices": {},
-  "trends": {},
+  "indices": {
+    "sp500": {
+      "close": 7353.009765625,
+      "date": "2026-11-18",
+      "change_1w_pct": 2.5052673091114697
+    },
+    "dow": {
+      "close": 50435.87890625,
+      "date": "2026-11-18",
+      "change_1w_pct": 2.070401070229466
+    },
+    "nasdaq": {
+      "close": 27204.814453125,
+      "date": "2026-11-18",
+      "change_1w_pct": 3.5337174697650964
+    }
+  },
+  "trends": {
+    "sp500": {
+      "available": true,
+      "close": 7561.669921875,
+      "ma30": 7545.966048177083,
+      "ma30_4w_ago": 7437.706396484375,
+      "stage4": false,
+      "support26": 7237.85009765625,
+      "support_break": false,
+      "last_week": "2026-11-13",
+      "change_1w_pct": 2.5052673091114697,
+      "weeks": 261
+    },
+    "dow": {
+      "available": true,
+      "close": 52347.55078125,
+      "ma30": 51788.710677083334,
+      "ma30_4w_ago": 51169.26276041667,
+      "stage4": false,
+      "support26": 49235.73828125,
+      "support_break": false,
+      "last_week": "2026-11-13",
+      "change_1w_pct": 2.070401070229466,
+      "weeks": 261
+    },
+    "nasdaq": {
+      "available": true,
+      "close": 27943.740234375,
+      "ma30": 29209.56328125,
+      "ma30_4w_ago": 28765.928580729167,
+      "stage4": false,
+      "support26": 26606.4296875,
+      "support_break": false,
+      "last_week": "2026-11-13",
+      "change_1w_pct": 3.5337174697650964,
+      "weeks": 261
+    }
+  },
   "macro": {},
   "ad": {
-    "status": null,
-    "detail": "Première collecte en attente."
+    "available": true,
+    "status": true,
+    "divergence": true,
+    "new_low": false,
+    "peak_date": "2026-08-14",
+    "last_date": "2026-11-18",
+    "sessions_since_peak": 67,
+    "price_new_high_after_peak": true,
+    "current": 11331.0,
+    "previous_60d_low": 10105.0,
+    "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
+    "generated_at": "2026-11-18T17:25:23.665577+00:00"
   },
-  "criteria": [],
-  "sources": [],
+  "criteria": [
+    {
+      "name": "Divergence A/D supérieure à 3 mois",
+      "status": "yes",
+      "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
+      "weight": 2
+    },
+    {
+      "name": "A/D inscrit un nouveau plus bas après le rebond",
+      "status": "no",
+      "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
+      "weight": 1
+    },
+    {
+      "name": "MM30 semaines descendante et cours sous MM30 sur les 3 indices",
+      "status": "no",
+      "detail": "0/3 indices en phase 4.",
+      "weight": 2
+    },
+    {
+      "name": "Les 3 indices cassent leur support hebdomadaire",
+      "status": "no",
+      "detail": "Cassure confirmée sur deux clôtures hebdomadaires sous les supports calculés sur les 26 semaines antérieures.",
+      "weight": 2
+    },
+    {
+      "name": "Courbe des taux 10 ans – 2 ans inversée",
+      "status": "unknown",
+      "detail": "Séries FRED indisponibles.",
+      "weight": 1
+    },
+    {
+      "name": "Inscriptions au chômage en hausse",
+      "status": "unknown",
+      "detail": "Séries FRED indisponibles.",
+      "weight": 1
+    },
+    {
+      "name": "Taux de charge-offs bancaires en hausse",
+      "status": "unknown",
+      "detail": "Séries FRED indisponibles.",
+      "weight": 1
+    },
+    {
+      "name": "Inflation élevée et taux directeurs restrictifs",
+      "status": "unknown",
+      "detail": "Séries FRED indisponibles.",
+      "weight": 1
+    }
+  ],
+  "sources": [
+    {
+      "name": "S&P 500 — Yahoo Finance",
+      "date": "2026-11-18",
+      "status": "cours récupérés"
+    },
+    {
+      "name": "Dow Jones — Yahoo Finance",
+      "date": "2026-11-18",
+      "status": "cours récupérés"
+    },
+    {
+      "name": "Nasdaq 100 — Yahoo Finance",
+      "date": "2026-11-18",
+      "status": "cours récupérés"
+    },
+    {
+      "name": "DeanFinancials — A/D S&P 500 (proxy)",
+      "date": "2026-11-18",
+      "status": "source communautaire; fraîcheur contrôlée"
+    }
+  ],
   "health": {
     "stale": true,
     "errors": [
-      "Première collecte non exécutée."
+      "FRED: 'utf-8' codec can't decode byte 0x8c in position 11: invalid start byte"
     ],
-    "notes": []
+    "notes": [
+      "La ligne A/D utilisée est un proxy S&P 500, pas la ligne NYSE exacte citée dans l'article 2019.",
+      "La cassure est testée sur deux clôtures hebdomadaires sous le plus bas des 26 semaines précédentes.",
+      "La phase 4 correspond à une clôture sous MM30 semaines avec MM30 descendante sur 4 semaines.",
+      "Les seuils de chômage, charge-offs et inflation sont des règles indicatives ajoutées au modèle, pas des seuils officiels BlogBourse.",
+      "Le score et les seuils doivent être backtestés; ce verdict n'est pas un ordre de vente."
+    ]
   }
 }
