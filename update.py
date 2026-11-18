@@ -27,20 +27,34 @@ def yahoo(symbol):
     return rows
 
 def fred():
+    # Télécharger les séries séparément : l'export multi-séries FRED renvoie parfois un CSV mal formé.
     ids=["DGS10","DGS2","ICSA","UNRATE","CORALACBS","CPIAUCSL","FEDFUNDS"]
-    raw=get("https://fred.stlouisfed.org/graph/fredgraph.csv?id="+",".join(ids)).decode("latin-1")
-    out={k:[] for k in ids}
-    for row in csv.DictReader(io.StringIO(raw)):
-        dt=row.get("observation_date") or row.get("DATE")
-        if not dt: continue
-        for k in ids:
-            try: v=float(row[k]) if row.get(k) not in ("",".","NaN",None) else None
-            except (ValueError,KeyError): v=None
-            if v is not None: out[k].append({"date":dt,"value":v})
-    for k,v in out.items():
-        if not v: raise RuntimeError("Série FRED absente: "+k)
+    out={}
+    for k in ids:
+        payload=get("https://fred.stlouisfed.org/graph/fredgraph.csv?id="+k).decode("utf-8-sig",errors="replace")
+        reader=csv.reader(io.StringIO(payload,newline=""))
+        rows=list(reader)
+        if not rows: raise RuntimeError("CSV FRED vide: "+k)
+        header=[x.strip() for x in rows[0]]
+        try:
+            date_idx=header.index("observation_date")
+        except ValueError:
+            date_idx=0
+        try:
+            value_idx=header.index(k)
+        except ValueError:
+            value_idx=1
+        vals=[]
+        for row in rows[1:]:
+            if len(row)<=max(date_idx,value_idx): continue
+            dt=row[date_idx].strip()
+            raw=row[value_idx].strip()
+            if not dt or raw in ("",".","nan","NaN"): continue
+            try: vals.append({"date":dt,"value":float(raw)})
+            except ValueError: continue
+        if not vals: raise RuntimeError("Série FRED vide ou illisible: "+k)
+        out[k]=vals
     return out
-
 def weekly(rows):
     groups={}
     for r in rows:
