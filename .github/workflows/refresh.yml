@@ -34,6 +34,7 @@ jobs:
           git add data/latest.json data/state.json
           if ! git diff --cached --quiet; then
             git commit -m "Actualisation des données Market Guard"
+            git pull --rebase origin main
             git push
           fi
       - name: Activer et configurer GitHub Pages
