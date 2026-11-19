@@ -25,3 +25,6 @@ Dans **Settings → Pages**, choisir **GitHub Actions**. Le workflow s'exécute 
 Alertes Telegram facultatives via les secrets `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID`.
 
 Aucune transaction n'est exécutée. Une donnée indisponible reste UNKNOWN, jamais positive par défaut.
+
+## Backtest historique
+Le script `backtest.py` teste uniquement les signaux techniques (MM30 semaines descendante + cassure confirmée de support 26 semaines) sur les indices S&P 500, Dow Jones et Nasdaq 100. Il examine les périodes 2000, 2008, 2020 et 2022 et rapporte la fréquence de signal. Il ne teste pas la macro, la largeur de marché, ni une stratégie d'exécution/portefeuille LQQ; c'est une première étape de validation, pas une preuve de rentabilité. Le workflow `Weekly Market Guard backtest` s'exécute chaque dimanche et peut être lancé manuellement. Les résultats sont publiés dans `data/backtest.json` et le tableau de bord.
