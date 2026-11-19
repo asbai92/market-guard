@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T08:14:53.623714+00:00",
+  "generated_at": "2026-11-19T08:15:18.532345+00:00",
   "method": "Simulation hebdomadaire sans anticipation: signal évalué à la clôture, position modifiée pour la semaine suivante. Sortie si MM30 descendante + cassure confirmée; réentrée après deux clôtures au-dessus de MM30 avec moyenne en hausse. Cash rémunéré 0%; sans frais, fiscalité, glissement ni dividendes. Résultats historiques non prédictifs.",
   "crises": [
     {
