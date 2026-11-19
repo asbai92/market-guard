@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-19T04:26:31+00:00",
+  "generated_at": "2026-11-19T08:00:45+00:00",
   "verdict": {
-    "status": "UNKNOWN",
+    "status": "CAUTION",
     "score": 0,
     "max_score": 11,
     "coverage": 6,
-    "explanation": "Collecte incomplète. Les données manquantes ne sont pas considérées comme rassurantes."
+    "explanation": "Aucun signal technique majeur détecté dans les données disponibles, mais la NYSE A/D manque : le système ne peut pas certifier un état vert."
   },
   "indices": {
     "sp500": {
@@ -14,12 +14,12 @@
       "change_1w_pct": 2.5052673091114697
     },
     "dow": {
-      "close": 50198.19921875,
+      "close": 50198.171875,
       "date": "2026-11-18",
       "change_1w_pct": 2.070401070229466
     },
     "nasdaq": {
-      "close": 27116.2578125,
+      "close": 27116.259765625,
       "date": "2026-11-18",
       "change_1w_pct": 3.5337174697650964
     }
@@ -35,7 +35,7 @@
       "support_break": false,
       "last_week": "2026-11-13",
       "change_1w_pct": 2.5052673091114697,
-      "weeks": 261
+      "weeks": 2185
     },
     "dow": {
       "available": true,
@@ -47,7 +47,7 @@
       "support_break": false,
       "last_week": "2026-11-13",
       "change_1w_pct": 2.070401070229466,
-      "weeks": 261
+      "weeks": 1820
     },
     "nasdaq": {
       "available": true,
@@ -59,7 +59,7 @@
       "support_break": false,
       "last_week": "2026-11-13",
       "change_1w_pct": 3.5337174697650964,
-      "weeks": 261
+      "weeks": 2146
     }
   },
   "macro": {
@@ -80,10 +80,12 @@
       "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 51 mois depuis le début. Fenêtre historique 12–18 mois: non."
     },
     "claims_latest": 200000.0,
+    "claims_latest_date": "2026-11-07",
     "claims_4w_avg": 195250.0,
     "claims_13w_avg": 199923.07692307694,
     "claims_rising": false,
     "unemployment_latest": 4.1,
+    "unemployment_date": "2026-10-01",
     "unemployment_rising": false,
     "chargeoff_latest": 0.55,
     "chargeoff_date": "2026-04-01",
@@ -202,7 +204,69 @@
     }
   ],
   "health": {
-    "stale": true,
+    "stale": false,
+    "freshness": {
+      "checks": [
+        {
+          "name": "S&P 500",
+          "date": "2026-11-18",
+          "age_days": 1,
+          "max_age_days": 4,
+          "fresh": true
+        },
+        {
+          "name": "Dow Jones",
+          "date": "2026-11-18",
+          "age_days": 1,
+          "max_age_days": 4,
+          "fresh": true
+        },
+        {
+          "name": "Nasdaq 100",
+          "date": "2026-11-18",
+          "age_days": 1,
+          "max_age_days": 4,
+          "fresh": true
+        },
+        {
+          "name": "Demandes chômage",
+          "date": "2026-11-07",
+          "age_days": 12,
+          "max_age_days": 14,
+          "fresh": true
+        },
+        {
+          "name": "Chômage",
+          "date": "2026-10-01",
+          "age_days": 49,
+          "max_age_days": 60,
+          "fresh": true
+        },
+        {
+          "name": "Charge-offs",
+          "date": "2026-04-01",
+          "age_days": 232,
+          "max_age_days": 240,
+          "fresh": true
+        },
+        {
+          "name": "Courbe taux",
+          "date": "2026-11-18",
+          "age_days": 1,
+          "max_age_days": 7,
+          "fresh": true
+        },
+        {
+          "name": "CPI",
+          "date": "2026-10-01",
+          "age_days": 49,
+          "max_age_days": 60,
+          "fresh": true
+        }
+      ],
+      "all_fresh": true,
+      "stale_items": []
+    },
     "errors": [],
     "notes": [
       "La ligne NYSE A/D exacte ($ADLINENYA) n'est pas connectée. Le proxy S&P 500 DeanFi est affiché séparément et ne remplace pas la série NYSE.",
