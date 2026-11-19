@@ -15,7 +15,7 @@ def get(url):
 
 def yahoo(symbol):
     import urllib.parse
-    end=int(datetime.now(timezone.utc).timestamp()); start=end-5*366*86400
+    end=int(datetime.now(timezone.utc).timestamp()); start=int(datetime(1985,1,1,tzinfo=timezone.utc).timestamp())
     url=f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol,safe='')}?period1={start}&period2={end}&interval=1d"
     j=json.loads(get(url)); result=j["chart"]["result"][0]; q=result["indicators"]["quote"][0]
     rows=[]
@@ -138,6 +138,26 @@ def ad_metrics(sp):
             "detail":f"Divergence > 3 mois: {bool(divergence)}. Nouveau plus bas A/D sur 60 séances: {bool(new_low)}. Univers S&P 500, proxy." ,
             "generated_at":generated}
 
+def age_days(date_text):
+    try:
+        d=date.fromisoformat(str(date_text)[:10])
+        return (datetime.now(timezone.utc).date()-d).days
+    except Exception:
+        return None
+
+def freshness_check(indices, macro):
+    checks=[]
+    for k,label in [("sp500","S&P 500"),("dow","Dow Jones"),("nasdaq","Nasdaq 100")]:
+        dt=indices.get(k,{}).get("date"); age=age_days(dt)
+        checks.append({"name":label,"date":dt,"age_days":age,"max_age_days":4,"fresh":age is not None and age<=4})
+    if macro:
+        for key,label,max_age in [("claims_latest_date","Demandes chômage",14),("unemployment_date","Chômage",60),("chargeoff_date","Charge-offs",180),("yield_spread_date","Courbe taux",7)]:
+            dt=macro.get(key); age=age_days(dt)
+            checks.append({"name":label,"date":dt,"age_days":age,"max_age_days":max_age,"fresh":age is not None and age<=max_age})
+        dt=macro.get("dates",{}).get("CPIAUCSL"); age=age_days(dt)
+        checks.append({"name":"CPI","date":dt,"age_days":age,"max_age_days":60,"fresh":age is not None and age<=60})
+    return {"checks":checks,"all_fresh":bool(checks) and all(x["fresh"] for x in checks),"stale_items":[x for x in checks if not x["fresh"]]}
+
 def criterion(name,status,detail,weight=1):
     return {"name":name,"status":"unknown" if status is None else ("yes" if status else "no"),"detail":detail,"weight":weight}
 
@@ -160,9 +180,9 @@ def main():
         co=f["CORALACBS"]; co_rise=(co[-1]["value"]>co[-2]["value"]>co[-3]["value"] and co[-1]["value"]-co[-5]["value"]>=0.15) if len(co)>=5 else None
         cpi=f["CPIAUCSL"]; cpi_yoy=(cpi[-1]["value"]/cpi[-13]["value"]-1)*100 if len(cpi)>=13 else None
         fed=f["FEDFUNDS"][-1]["value"]
-        macro={"yield_spread":f["T10Y2Y"][-1]["value"],"yield_spread_date":f["T10Y2Y"][-1]["date"],"yield_inverted":f["T10Y2Y"][-1]["value"]<0,"yield_curve":yc,"claims_latest":claims[-1]["value"],
+        macro={"yield_spread":f["T10Y2Y"][-1]["value"],"yield_spread_date":f["T10Y2Y"][-1]["date"],"yield_inverted":f["T10Y2Y"][-1]["value"]<0,"yield_curve":yc,"claims_latest":claims[-1]["value"],"claims_latest_date":claims[-1]["date"],
           "claims_4w_avg":avg4,"claims_13w_avg":avg13,"claims_rising":avg4>avg13*1.08,
-          "unemployment_latest":un[-1]["value"],"unemployment_rising":un_rise,
+          "unemployment_latest":un[-1]["value"],"unemployment_date":un[-1]["date"],"unemployment_rising":un_rise,
           "chargeoff_latest":co[-1]["value"],"chargeoff_date":co[-1]["date"],"chargeoffs_rising":co_rise,
           "cpi_yoy":cpi_yoy,"fed_funds":fed,"inflation_restrictive":(cpi_yoy>=3 and fed>=4) if cpi_yoy is not None else None,
           "dates":{k:v[-1]["date"] for k,v in f.items()}}
@@ -197,19 +217,21 @@ def main():
         criterion("Inflation élevée et taux directeurs restrictifs",macro["inflation_restrictive"],f"CPI 12 mois : {macro['cpi_yoy']:.2f} % ; Fed Funds : {macro['fed_funds']:.2f} %." if macro.get("cpi_yoy") is not None else "Données CPI insuffisantes.",1)]
     else:
       criteria += [criterion(n,None,"Séries FRED indisponibles.",1) for n in ["Courbe des taux 10 ans – 2 ans inversée","Inscriptions au chômage en hausse","Taux de charge-offs bancaires en hausse","Inflation élevée et taux directeurs restrictifs"]]
-    score=sum(x["weight"] for x in criteria if x["status"]=="yes"); coverage=sum(x["status"]!="unknown" for x in criteria)
+    score=sum(x["weight"] for x in criteria if x["status"]=="yes"); coverage=sum(x["status"]!="unknown" for x in criteria)\n    freshness=freshness_check(indices,macro)
     all_market=all(trends.get(k,{}).get("available") for k in ("sp500","dow","nasdaq"))
-    if coverage<5 or not all_market or ad.get("available") is not True:
-      status="UNKNOWN"; explanation="Collecte incomplète. Les données manquantes ne sont pas considérées comme rassurantes."
-    elif all_stages is True and all_breaks is True and score>=6:
-      status="EXIT"; explanation="Les 3 indices sont en phase 4 et ont confirmé la cassure de leurs supports hebdomadaires, avec un score de risque élevé. C'est le signal technique fort décrit dans l'approche 2022; vérifier les données et le portefeuille avant toute décision."
-    elif score>=3 or any(x is True for x in stages) or any(x is True for x in breaks):
-      status="CAUTION"; explanation="Plusieurs signaux se dégradent. Vigilance renforcée, sans signal complet de sortie."
+    if not freshness["all_fresh"] or not all_market or coverage<5:
+      status="UNKNOWN"; explanation="Données absentes ou périmées : verdict suspendu. Ne pas interpréter comme rassurant."
+    elif all_stages is True and all_breaks is True:
+      status="EXIT"; explanation="Confirmation technique forte : les trois indices sont sous leurs MM30 semaines descendantes et ont confirmé la cassure de supports. Signal à examiner, pas un ordre automatique."
+    elif score>=4 or sum(x is True for x in stages)>=2 or sum(x is True for x in breaks)>=2:
+      status="CAUTION"; explanation="Risque en hausse : plusieurs signaux se dégradent. Vigilance renforcée."
+    elif ad.get("available") is not True:
+      status="CAUTION"; explanation="Aucun signal technique majeur détecté dans les données disponibles, mais la NYSE A/D manque : le système ne peut pas certifier un état vert."
     else:
-      status="HOLD"; explanation="Les signaux disponibles ne réunissent pas les conditions de vigilance renforcée. Cela ne garantit pas l'absence de baisse."
+      status="HOLD"; explanation="Données fraîches et critères disponibles : aucun signal de sortie détecté. Cela ne garantit pas l'absence de baisse."
     data={"generated_at":now,"verdict":{"status":status,"score":score,"max_score":sum(x["weight"] for x in criteria),"coverage":coverage,"explanation":explanation},
       "indices":indices,"trends":trends,"macro":macro,"ad":ad,"ad_sp500":ad_sp500,"criteria":criteria,"sources":sources,
-      "health":{"stale":bool(errors or not ad.get("available")),"errors":errors,"notes":[
+      "health":{"stale":bool(errors or not freshness["all_fresh"]),"freshness":freshness,"errors":errors,"notes":[
        "La ligne NYSE A/D exacte ($ADLINENYA) n'est pas connectée. Le proxy S&P 500 DeanFi est affiché séparément et ne remplace pas la série NYSE.",
        "La cassure est testée sur deux clôtures hebdomadaires sous le plus bas des 26 semaines précédentes.",
        "La phase 4 correspond à une clôture sous MM30 semaines avec MM30 descendante sur 4 semaines.",
