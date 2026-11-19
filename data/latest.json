@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T17:58:18+00:00",
+  "generated_at": "2026-11-19T04:26:31+00:00",
   "verdict": {
     "status": "UNKNOWN",
     "score": 0,
@@ -9,17 +9,17 @@
   },
   "indices": {
     "sp500": {
-      "close": 7334.06005859375,
+      "close": 7323.6298828125,
       "date": "2026-11-18",
       "change_1w_pct": 2.5052673091114697
     },
     "dow": {
-      "close": 50317.87109375,
+      "close": 50198.19921875,
       "date": "2026-11-18",
       "change_1w_pct": 2.070401070229466
     },
     "nasdaq": {
-      "close": 27101.8984375,
+      "close": 27116.2578125,
       "date": "2026-11-18",
       "change_1w_pct": 3.5337174697650964
     }
@@ -63,8 +63,8 @@
     }
   },
   "macro": {
-    "yield_spread": 0.3,
-    "yield_spread_date": "2026-11-17",
+    "yield_spread": 0.27,
+    "yield_spread_date": "2026-11-18",
     "yield_inverted": false,
     "yield_curve": {
       "available": true,
@@ -92,9 +92,9 @@
     "fed_funds": 3.88,
     "inflation_restrictive": false,
     "dates": {
-      "T10Y2Y": "2026-11-17",
-      "DGS10": "2026-11-16",
-      "DGS2": "2026-11-16",
+      "T10Y2Y": "2026-11-18",
+      "DGS10": "2026-11-17",
+      "DGS2": "2026-11-17",
       "ICSA": "2026-11-07",
       "UNRATE": "2026-10-01",
       "CORALACBS": "2026-04-01",
@@ -118,10 +118,10 @@
     "last_date": "2026-11-18",
     "sessions_since_peak": 67,
     "price_new_high_after_peak": true,
-    "current": 11316.0,
-    "previous_60d_low": 10105.0,
+    "current": 7194.0,
+    "previous_60d_low": 6077.0,
     "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
-    "generated_at": "2026-11-18T17:55:24.843065+00:00",
+    "generated_at": "2026-11-19T02:40:05.939619+00:00",
     "warning": "Univers S&P 500 uniquement : indicateur secondaire, non substituable à la NYSE A/D Line."
   },
   "criteria": [
@@ -152,7 +152,7 @@
     {
       "name": "Inversion persistante 10 ans–2 ans / risque 12–18 mois",
       "status": "no",
-      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 51 mois depuis le début. Fenêtre historique 12–18 mois: non. Écart quotidien : 0.30 point.",
+      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 51 mois depuis le début. Fenêtre historique 12–18 mois: non. Écart quotidien : 0.27 point.",
       "weight": 1
     },
     {
@@ -192,7 +192,7 @@
     },
     {
       "name": "FRED / Federal Reserve",
-      "date": "2026-11-17",
+      "date": "2026-11-18",
       "status": "séries publiques récupérées"
     },
     {
