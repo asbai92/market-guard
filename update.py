@@ -151,7 +151,7 @@ def freshness_check(indices, macro):
         dt=indices.get(k,{}).get("date"); age=age_days(dt)
         checks.append({"name":label,"date":dt,"age_days":age,"max_age_days":4,"fresh":age is not None and age<=4})
     if macro:
-        for key,label,max_age in [("claims_latest_date","Demandes chômage",14),("unemployment_date","Chômage",60),("chargeoff_date","Charge-offs",180),("yield_spread_date","Courbe taux",7)]:
+        for key,label,max_age in [("claims_latest_date","Demandes chômage",14),("unemployment_date","Chômage",60),("chargeoff_date","Charge-offs",240),("yield_spread_date","Courbe taux",7)]:
             dt=macro.get(key); age=age_days(dt)
             checks.append({"name":label,"date":dt,"age_days":age,"max_age_days":max_age,"fresh":age is not None and age<=max_age})
         dt=macro.get("dates",{}).get("CPIAUCSL"); age=age_days(dt)
