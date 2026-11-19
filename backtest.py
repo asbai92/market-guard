@@ -47,8 +47,8 @@ def signals(w):
         broken=x["close"]<support and w[i-1]["close"]<prev_support
         # Réentrée confirmée: deux clôtures consécutives au-dessus de MM30,
         # MM30 en hausse sur 4 semaines. Décision à la clôture, effet semaine suivante.
-        reentry=(x["close"]>ma and w[i-1]["close"]>statistics.mean([y["close"] for y in w[i-30:i-1]])
-                 and ma>ma4ago)
+        prior_ma=statistics.mean([y["close"] for y in w[i-30:i]])
+        reentry=(x["close"]>ma and w[i-1]["close"]>prior_ma and ma>ma4ago)
         out.append({"date":x["date"],"close":x["close"],"ma30":ma,
                     "stage4":stage4,"support_break":broken,
                     "combined":stage4 and broken,"reentry":reentry})
