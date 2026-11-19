@@ -217,7 +217,8 @@ def main():
         criterion("Inflation élevée et taux directeurs restrictifs",macro["inflation_restrictive"],f"CPI 12 mois : {macro['cpi_yoy']:.2f} % ; Fed Funds : {macro['fed_funds']:.2f} %." if macro.get("cpi_yoy") is not None else "Données CPI insuffisantes.",1)]
     else:
       criteria += [criterion(n,None,"Séries FRED indisponibles.",1) for n in ["Courbe des taux 10 ans – 2 ans inversée","Inscriptions au chômage en hausse","Taux de charge-offs bancaires en hausse","Inflation élevée et taux directeurs restrictifs"]]
-    score=sum(x["weight"] for x in criteria if x["status"]=="yes"); coverage=sum(x["status"]!="unknown" for x in criteria)\n    freshness=freshness_check(indices,macro)
+    score=sum(x["weight"] for x in criteria if x["status"]=="yes"); coverage=sum(x["status"]!="unknown" for x in criteria)
+    freshness=freshness_check(indices,macro)
     all_market=all(trends.get(k,{}).get("available") for k in ("sp500","dow","nasdaq"))
     if not freshness["all_fresh"] or not all_market or coverage<5:
       status="UNKNOWN"; explanation="Données absentes ou périmées : verdict suspendu. Ne pas interpréter comme rassurant."
