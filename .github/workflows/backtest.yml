@@ -1,5 +1,9 @@
 name: Weekly Market Guard backtest
 on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "data/backtest.json"
   workflow_dispatch:
   schedule:
     - cron: "20 2 * * 0"
