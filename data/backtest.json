@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T08:15:18.532345+00:00",
+  "generated_at": "2026-11-22T09:48:09.985897+00:00",
   "method": "Simulation hebdomadaire sans anticipation: signal évalué à la clôture, position modifiée pour la semaine suivante. Sortie si MM30 descendante + cassure confirmée; réentrée après deux clôtures au-dessus de MM30 avec moyenne en hausse. Cash rémunéré 0%; sans frais, fiscalité, glissement ni dividendes. Résultats historiques non prédictifs.",
   "crises": [
     {
@@ -110,8 +110,8 @@
   "comparisons": {
     "S&P 500": {
       "buy_and_hold": {
-        "total_return_pct": 2170.47,
-        "cagr_pct": 9.01,
+        "total_return_pct": 2042.36,
+        "cagr_pct": 8.83,
         "max_drawdown_pct": -56.24,
         "time_in_market_pct": 100.0,
         "weeks": 1890
@@ -131,8 +131,8 @@
     },
     "Dow Jones": {
       "buy_and_hold": {
-        "total_return_pct": 1436.24,
-        "cagr_pct": 8.31,
+        "total_return_pct": 1373.48,
+        "cagr_pct": 8.18,
         "max_drawdown_pct": -52.98,
         "time_in_market_pct": 100.0,
         "weeks": 1786
@@ -152,8 +152,8 @@
     },
     "Nasdaq 100": {
       "buy_and_hold": {
-        "total_return_pct": 13905.25,
-        "cagr_pct": 14.63,
+        "total_return_pct": 12827.19,
+        "cagr_pct": 14.37,
         "max_drawdown_pct": -82.62,
         "time_in_market_pct": 100.0,
         "weeks": 1890
@@ -178,18 +178,18 @@
     "start": "2009-01-02",
     "comparison_using_nasdaq_signal": {
       "buy_and_hold": {
-        "total_return_pct": -33.6,
-        "cagr_pct": -2.36,
+        "total_return_pct": -43.28,
+        "cagr_pct": -3.25,
         "max_drawdown_pct": -99.54,
         "time_in_market_pct": 100.0,
-        "weeks": 882
+        "weeks": 883
       },
       "strategy": {
         "total_return_pct": -77.26,
-        "cagr_pct": -8.27,
+        "cagr_pct": -8.26,
         "max_drawdown_pct": -99.54,
-        "time_in_market_pct": 73.8,
-        "weeks": 882
+        "time_in_market_pct": 73.7,
+        "weeks": 883
       },
       "exits": [
         "2022-05-06"
