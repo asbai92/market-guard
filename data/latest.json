@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T05:38:11+00:00",
+  "generated_at": "2026-11-26T05:22:37+00:00",
   "verdict": {
     "status": "CAUTION",
     "score": 0,
@@ -9,18 +9,18 @@
   },
   "indices": {
     "sp500": {
-      "close": 7201.08984375,
-      "date": "2026-11-24",
+      "close": 7182.77978515625,
+      "date": "2026-11-25",
       "change_1w_pct": -8.612909474826136
     },
     "dow": {
-      "close": 50018.69921875,
-      "date": "2026-11-24",
+      "close": 50182.94921875,
+      "date": "2026-11-25",
       "change_1w_pct": -8.023723352028245
     },
     "nasdaq": {
-      "close": 26214.169921875,
-      "date": "2026-11-24",
+      "close": 26046.900390625,
+      "date": "2026-11-25",
       "change_1w_pct": -10.430814705468128
     }
   },
@@ -63,8 +63,8 @@
     }
   },
   "macro": {
-    "yield_spread": 0.28,
-    "yield_spread_date": "2026-11-24",
+    "yield_spread": 0.24,
+    "yield_spread_date": "2026-11-25",
     "yield_inverted": false,
     "yield_curve": {
       "available": true,
@@ -79,10 +79,10 @@
       "latest_month": "2026-10",
       "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 51 mois depuis le début. Fenêtre historique 12–18 mois: non."
     },
-    "claims_latest": 203000.0,
-    "claims_latest_date": "2026-11-14",
-    "claims_4w_avg": 197750.0,
-    "claims_13w_avg": 199769.23076923078,
+    "claims_latest": 189000.0,
+    "claims_latest_date": "2026-11-21",
+    "claims_4w_avg": 196000.0,
+    "claims_13w_avg": 198538.46153846153,
     "claims_rising": false,
     "unemployment_latest": 4.1,
     "unemployment_date": "2026-10-01",
@@ -94,10 +94,10 @@
     "fed_funds": 3.88,
     "inflation_restrictive": false,
     "dates": {
-      "T10Y2Y": "2026-11-24",
-      "DGS10": "2026-11-23",
-      "DGS2": "2026-11-23",
-      "ICSA": "2026-11-14",
+      "T10Y2Y": "2026-11-25",
+      "DGS10": "2026-11-24",
+      "DGS2": "2026-11-24",
+      "ICSA": "2026-11-21",
       "UNRATE": "2026-10-01",
       "CORALACBS": "2026-04-01",
       "CPIAUCSL": "2026-10-01",
@@ -117,13 +117,13 @@
     "divergence": true,
     "new_low": false,
     "peak_date": "2026-08-14",
-    "last_date": "2026-11-24",
-    "sessions_since_peak": 71,
+    "last_date": "2026-11-25",
+    "sessions_since_peak": 72,
     "price_new_high_after_peak": true,
-    "current": 6081.0,
-    "previous_60d_low": 5110.0,
+    "current": 6262.0,
+    "previous_60d_low": 5046.0,
     "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
-    "generated_at": "2026-11-25T04:19:05.340683+00:00",
+    "generated_at": "2026-11-26T03:39:26.365787+00:00",
     "warning": "Univers S&P 500 uniquement : indicateur secondaire, non substituable à la NYSE A/D Line."
   },
   "criteria": [
@@ -154,13 +154,13 @@
     {
       "name": "Inversion persistante 10 ans–2 ans / risque 12–18 mois",
       "status": "no",
-      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 51 mois depuis le début. Fenêtre historique 12–18 mois: non. Écart quotidien : 0.28 point.",
+      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 51 mois depuis le début. Fenêtre historique 12–18 mois: non. Écart quotidien : 0.24 point.",
       "weight": 1
     },
     {
       "name": "Inscriptions au chômage en hausse",
       "status": "no",
-      "detail": "Moyenne 4 semaines 197,750 vs 13 semaines 199,769.",
+      "detail": "Moyenne 4 semaines 196,000 vs 13 semaines 198,538.",
       "weight": 1
     },
     {
@@ -179,27 +179,27 @@
   "sources": [
     {
       "name": "S&P 500 — Yahoo Finance",
-      "date": "2026-11-24",
+      "date": "2026-11-25",
       "status": "cours récupérés"
     },
     {
       "name": "Dow Jones — Yahoo Finance",
-      "date": "2026-11-24",
+      "date": "2026-11-25",
       "status": "cours récupérés"
     },
     {
       "name": "Nasdaq 100 — Yahoo Finance",
-      "date": "2026-11-24",
+      "date": "2026-11-25",
       "status": "cours récupérés"
     },
     {
       "name": "FRED / Federal Reserve",
-      "date": "2026-11-24",
+      "date": "2026-11-25",
       "status": "séries publiques récupérées"
     },
     {
       "name": "DeanFi — A/D S&P 500 (proxy secondaire)",
-      "date": "2026-11-24",
+      "date": "2026-11-25",
       "status": "disponible"
     }
   ],
@@ -209,49 +209,49 @@
       "checks": [
         {
           "name": "S&P 500",
-          "date": "2026-11-24",
+          "date": "2026-11-25",
           "age_days": 1,
           "max_age_days": 4,
           "fresh": true
         },
         {
           "name": "Dow Jones",
-          "date": "2026-11-24",
+          "date": "2026-11-25",
           "age_days": 1,
           "max_age_days": 4,
           "fresh": true
         },
         {
           "name": "Nasdaq 100",
-          "date": "2026-11-24",
+          "date": "2026-11-25",
           "age_days": 1,
           "max_age_days": 4,
           "fresh": true
         },
         {
           "name": "Demandes chômage",
-          "date": "2026-11-14",
-          "age_days": 11,
+          "date": "2026-11-21",
+          "age_days": 5,
           "max_age_days": 14,
           "fresh": true
         },
         {
           "name": "Chômage",
           "date": "2026-10-01",
-          "age_days": 55,
+          "age_days": 56,
           "max_age_days": 60,
           "fresh": true
         },
         {
           "name": "Charge-offs",
           "date": "2026-04-01",
-          "age_days": 238,
+          "age_days": 239,
           "max_age_days": 240,
           "fresh": true
         },
         {
           "name": "Courbe taux",
-          "date": "2026-11-24",
+          "date": "2026-11-25",
           "age_days": 1,
           "max_age_days": 7,
           "fresh": true
@@ -259,7 +259,7 @@
         {
           "name": "CPI",
           "date": "2026-10-01",
-          "age_days": 55,
+          "age_days": 56,
           "max_age_days": 60,
           "fresh": true
         }
