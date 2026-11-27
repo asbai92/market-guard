@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T05:22:37+00:00",
+  "generated_at": "2026-11-27T05:16:50+00:00",
   "verdict": {
     "status": "CAUTION",
     "score": 0,
@@ -11,55 +11,55 @@
     "sp500": {
       "close": 7182.77978515625,
       "date": "2026-11-25",
-      "change_1w_pct": -8.612909474826136
+      "change_1w_pct": 3.941740524751891
     },
     "dow": {
       "close": 50182.94921875,
       "date": "2026-11-25",
-      "change_1w_pct": -8.023723352028245
+      "change_1w_pct": 4.227900431909992
     },
     "nasdaq": {
       "close": 26046.900390625,
       "date": "2026-11-25",
-      "change_1w_pct": -10.430814705468128
+      "change_1w_pct": 4.06696518520171
     }
   },
   "trends": {
     "sp500": {
       "available": true,
-      "close": 6910.39013671875,
-      "ma30": 7537.476383463541,
-      "ma30_4w_ago": 7479.534065755209,
+      "close": 7182.77978515625,
+      "ma30": 7535.898372395834,
+      "ma30_4w_ago": 7512.780061848958,
       "stage4": false,
-      "support26": 7237.85009765625,
+      "support26": 6882.66015625,
       "support_break": false,
-      "last_week": "2026-11-20",
-      "change_1w_pct": -8.612909474826136,
-      "weeks": 2186
+      "last_week": "2026-11-25",
+      "change_1w_pct": 3.941740524751891,
+      "weeks": 2187
     },
     "dow": {
       "available": true,
-      "close": 48147.328125,
-      "ma30": 51752.597916666666,
-      "ma30_4w_ago": 51404.21341145833,
+      "close": 50182.94921875,
+      "ma30": 51775.38723958333,
+      "ma30_4w_ago": 51579.734635416666,
       "stage4": false,
-      "support26": 49235.73828125,
+      "support26": 47998.859375,
       "support_break": false,
-      "last_week": "2026-11-20",
-      "change_1w_pct": -8.023723352028245,
-      "weeks": 1821
+      "last_week": "2026-11-25",
+      "change_1w_pct": 4.227900431909992,
+      "weeks": 1822
     },
     "nasdaq": {
       "available": true,
-      "close": 25028.98046875,
-      "ma30": 29133.740299479166,
-      "ma30_4w_ago": 28960.087239583332,
-      "stage4": false,
-      "support26": 26606.4296875,
+      "close": 26046.900390625,
+      "ma30": 29078.291666666668,
+      "ma30_4w_ago": 29104.73125,
+      "stage4": true,
+      "support26": 24910.48046875,
       "support_break": false,
-      "last_week": "2026-11-20",
-      "change_1w_pct": -10.430814705468128,
-      "weeks": 2147
+      "last_week": "2026-11-25",
+      "change_1w_pct": 4.06696518520171,
+      "weeks": 2148
     }
   },
   "macro": {
@@ -123,7 +123,7 @@
     "current": 6262.0,
     "previous_60d_low": 5046.0,
     "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
-    "generated_at": "2026-11-26T03:39:26.365787+00:00",
+    "generated_at": "2026-11-27T03:40:34.164431+00:00",
     "warning": "Univers S&P 500 uniquement : indicateur secondaire, non substituable à la NYSE A/D Line."
   },
   "criteria": [
@@ -142,7 +142,7 @@
     {
       "name": "MM30 semaines descendante et cours sous MM30 sur les 3 indices",
       "status": "no",
-      "detail": "0/3 indices en phase 4.",
+      "detail": "1/3 indices en phase 4.",
       "weight": 2
     },
     {
@@ -210,56 +210,56 @@
         {
           "name": "S&P 500",
           "date": "2026-11-25",
-          "age_days": 1,
+          "age_days": 2,
           "max_age_days": 4,
           "fresh": true
         },
         {
           "name": "Dow Jones",
           "date": "2026-11-25",
-          "age_days": 1,
+          "age_days": 2,
           "max_age_days": 4,
           "fresh": true
         },
         {
           "name": "Nasdaq 100",
           "date": "2026-11-25",
-          "age_days": 1,
+          "age_days": 2,
           "max_age_days": 4,
           "fresh": true
         },
         {
           "name": "Demandes chômage",
           "date": "2026-11-21",
-          "age_days": 5,
+          "age_days": 6,
           "max_age_days": 14,
           "fresh": true
         },
         {
           "name": "Chômage",
           "date": "2026-10-01",
-          "age_days": 56,
+          "age_days": 57,
           "max_age_days": 60,
           "fresh": true
         },
         {
           "name": "Charge-offs",
           "date": "2026-04-01",
-          "age_days": 239,
+          "age_days": 240,
           "max_age_days": 240,
           "fresh": true
         },
         {
           "name": "Courbe taux",
           "date": "2026-11-25",
-          "age_days": 1,
+          "age_days": 2,
           "max_age_days": 7,
           "fresh": true
         },
         {
           "name": "CPI",
           "date": "2026-10-01",
-          "age_days": 56,
+          "age_days": 57,
           "max_age_days": 60,
           "fresh": true
         }
