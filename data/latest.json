@@ -1,70 +1,70 @@
 {
-  "generated_at": "2026-11-27T05:16:50+00:00",
+  "generated_at": "2026-11-28T04:54:33+00:00",
   "verdict": {
-    "status": "CAUTION",
+    "status": "UNKNOWN",
     "score": 0,
     "max_score": 11,
     "coverage": 6,
-    "explanation": "Aucun signal technique majeur détecté dans les données disponibles, mais la NYSE A/D manque : le système ne peut pas certifier un état vert."
+    "explanation": "Données absentes ou périmées : verdict suspendu. Ne pas interpréter comme rassurant."
   },
   "indices": {
     "sp500": {
-      "close": 7182.77978515625,
-      "date": "2026-11-25",
-      "change_1w_pct": 3.941740524751891
+      "close": 7297.490234375,
+      "date": "2026-11-27",
+      "change_1w_pct": 5.601711191375025
     },
     "dow": {
-      "close": 50182.94921875,
-      "date": "2026-11-25",
-      "change_1w_pct": 4.227900431909992
+      "close": 50774.8984375,
+      "date": "2026-11-27",
+      "change_1w_pct": 5.4573543638357425
     },
     "nasdaq": {
-      "close": 26046.900390625,
-      "date": "2026-11-25",
-      "change_1w_pct": 4.06696518520171
+      "close": 26726.388671875,
+      "date": "2026-11-27",
+      "change_1w_pct": 6.78177125610171
     }
   },
   "trends": {
     "sp500": {
       "available": true,
-      "close": 7182.77978515625,
-      "ma30": 7535.898372395834,
+      "close": 7297.490234375,
+      "ma30": 7539.722054036459,
       "ma30_4w_ago": 7512.780061848958,
       "stage4": false,
       "support26": 6882.66015625,
       "support_break": false,
-      "last_week": "2026-11-25",
-      "change_1w_pct": 3.941740524751891,
+      "last_week": "2026-11-27",
+      "change_1w_pct": 5.601711191375025,
       "weeks": 2187
     },
     "dow": {
       "available": true,
-      "close": 50182.94921875,
-      "ma30": 51775.38723958333,
+      "close": 50774.8984375,
+      "ma30": 51795.118880208334,
       "ma30_4w_ago": 51579.734635416666,
       "stage4": false,
       "support26": 47998.859375,
       "support_break": false,
-      "last_week": "2026-11-25",
-      "change_1w_pct": 4.227900431909992,
+      "last_week": "2026-11-27",
+      "change_1w_pct": 5.4573543638357425,
       "weeks": 1822
     },
     "nasdaq": {
       "available": true,
-      "close": 26046.900390625,
-      "ma30": 29078.291666666668,
+      "close": 26726.388671875,
+      "ma30": 29100.941276041667,
       "ma30_4w_ago": 29104.73125,
       "stage4": true,
       "support26": 24910.48046875,
       "support_break": false,
-      "last_week": "2026-11-25",
-      "change_1w_pct": 4.06696518520171,
+      "last_week": "2026-11-27",
+      "change_1w_pct": 6.78177125610171,
       "weeks": 2148
     }
   },
   "macro": {
-    "yield_spread": 0.24,
-    "yield_spread_date": "2026-11-25",
+    "yield_spread": 0.25,
+    "yield_spread_date": "2026-11-27",
     "yield_inverted": false,
     "yield_curve": {
       "available": true,
@@ -94,9 +94,9 @@
     "fed_funds": 3.88,
     "inflation_restrictive": false,
     "dates": {
-      "T10Y2Y": "2026-11-25",
-      "DGS10": "2026-11-24",
-      "DGS2": "2026-11-24",
+      "T10Y2Y": "2026-11-27",
+      "DGS10": "2026-11-25",
+      "DGS2": "2026-11-25",
       "ICSA": "2026-11-21",
       "UNRATE": "2026-10-01",
       "CORALACBS": "2026-04-01",
@@ -117,13 +117,13 @@
     "divergence": true,
     "new_low": false,
     "peak_date": "2026-08-14",
-    "last_date": "2026-11-25",
-    "sessions_since_peak": 72,
+    "last_date": "2026-11-27",
+    "sessions_since_peak": 73,
     "price_new_high_after_peak": true,
-    "current": 6262.0,
-    "previous_60d_low": 5046.0,
+    "current": 6444.0,
+    "previous_60d_low": 4911.0,
     "detail": "Divergence > 3 mois: True. Nouveau plus bas A/D sur 60 séances: False. Univers S&P 500, proxy.",
-    "generated_at": "2026-11-27T03:40:34.164431+00:00",
+    "generated_at": "2026-11-28T03:21:51.124621+00:00",
     "warning": "Univers S&P 500 uniquement : indicateur secondaire, non substituable à la NYSE A/D Line."
   },
   "criteria": [
@@ -154,7 +154,7 @@
     {
       "name": "Inversion persistante 10 ans–2 ans / risque 12–18 mois",
       "status": "no",
-      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 51 mois depuis le début. Fenêtre historique 12–18 mois: non. Écart quotidien : 0.24 point.",
+      "detail": "Inversion mensuelle persistante de 2022-07 à 2024-08; 51 mois depuis le début. Fenêtre historique 12–18 mois: non. Écart quotidien : 0.25 point.",
       "weight": 1
     },
     {
@@ -179,93 +179,101 @@
   "sources": [
     {
       "name": "S&P 500 — Yahoo Finance",
-      "date": "2026-11-25",
+      "date": "2026-11-27",
       "status": "cours récupérés"
     },
     {
       "name": "Dow Jones — Yahoo Finance",
-      "date": "2026-11-25",
+      "date": "2026-11-27",
       "status": "cours récupérés"
     },
     {
       "name": "Nasdaq 100 — Yahoo Finance",
-      "date": "2026-11-25",
+      "date": "2026-11-27",
       "status": "cours récupérés"
     },
     {
       "name": "FRED / Federal Reserve",
-      "date": "2026-11-25",
+      "date": "2026-11-27",
       "status": "séries publiques récupérées"
     },
     {
       "name": "DeanFi — A/D S&P 500 (proxy secondaire)",
-      "date": "2026-11-25",
+      "date": "2026-11-27",
       "status": "disponible"
     }
   ],
   "health": {
-    "stale": false,
+    "stale": true,
     "freshness": {
       "checks": [
         {
           "name": "S&P 500",
-          "date": "2026-11-25",
-          "age_days": 2,
+          "date": "2026-11-27",
+          "age_days": 1,
           "max_age_days": 4,
           "fresh": true
         },
         {
           "name": "Dow Jones",
-          "date": "2026-11-25",
-          "age_days": 2,
+          "date": "2026-11-27",
+          "age_days": 1,
           "max_age_days": 4,
           "fresh": true
         },
         {
           "name": "Nasdaq 100",
-          "date": "2026-11-25",
-          "age_days": 2,
+          "date": "2026-11-27",
+          "age_days": 1,
           "max_age_days": 4,
           "fresh": true
         },
         {
           "name": "Demandes chômage",
           "date": "2026-11-21",
-          "age_days": 6,
+          "age_days": 7,
           "max_age_days": 14,
           "fresh": true
         },
         {
           "name": "Chômage",
           "date": "2026-10-01",
-          "age_days": 57,
+          "age_days": 58,
           "max_age_days": 60,
           "fresh": true
         },
         {
           "name": "Charge-offs",
           "date": "2026-04-01",
-          "age_days": 240,
+          "age_days": 241,
           "max_age_days": 240,
-          "fresh": true
+          "fresh": false
         },
         {
           "name": "Courbe taux",
-          "date": "2026-11-25",
-          "age_days": 2,
+          "date": "2026-11-27",
+          "age_days": 1,
           "max_age_days": 7,
           "fresh": true
         },
         {
           "name": "CPI",
           "date": "2026-10-01",
-          "age_days": 57,
+          "age_days": 58,
           "max_age_days": 60,
           "fresh": true
         }
       ],
-      "all_fresh": true,
-      "stale_items": []
+      "all_fresh": false,
+      "stale_items": [
+        {
+          "name": "Charge-offs",
+          "date": "2026-04-01",
+          "age_days": 241,
+          "max_age_days": 240,
+          "fresh": false
+        }
+      ]
     },
     "errors": [],
     "notes": [
